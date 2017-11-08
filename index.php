@@ -1,18 +1,25 @@
 <?php
 
 include_once 'dbcon.php';
+/*$data="pass";
+$hashed = hash('sha512', $data);
+$hashed2 = hash('sha256', $data);
+
+ echo $hashed;echo "<br>";
+ echo $hashed2;*/
 
 if(isset($_POST['login']))
 {
  $emails = $MySQLi_CON->real_escape_string(trim($_POST['emails']));
  $passs = $MySQLi_CON->real_escape_string(trim($_POST['passs']));
+ $hashpasss=hash('sha512', $passs);
  
  $query = $MySQLi_CON->query("SELECT * FROM users WHERE email='$emails'");
  $row=$query->fetch_array();
 
 
 
-  if($passs == $row['password'])
+  if($hashpasss == $row['password'])
  {
  
   
@@ -50,6 +57,7 @@ if(isset($_POST["signup"]))
    $name=$_POST["names"];
    $email=$_POST["email"];
    $password=$_POST["pass"];
+   $hashpass=hash('sha256', $password);
    
 
        $check_email = $MySQLi_CON->query("SELECT email FROM users WHERE email='$email'");
@@ -58,7 +66,7 @@ if(isset($_POST["signup"]))
  if($count==0){
 
 
-          $query = "INSERT INTO users(names,email,password)VALUES('$name','$email','$password')";
+          $query = "INSERT INTO users(names,email,password)VALUES('$name','$email','$hashpass')";
 
                      
  $result = mysqli_query($MySQLi_CON,$query);
