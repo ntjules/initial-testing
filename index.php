@@ -14,6 +14,7 @@ if(isset($_POST['login']))
  $passs = $MySQLi_CON->real_escape_string(trim($_POST['passs']));
  $hashpasss=hash('sha512', $passs);
  
+ 
  $query = $MySQLi_CON->query("SELECT * FROM users WHERE email='$emails'");
  $row=$query->fetch_array();
 
