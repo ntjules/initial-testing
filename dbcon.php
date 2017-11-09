@@ -4,7 +4,7 @@
   $DB_pass = "";
   $DB_name = "simple";
   
-  $MySQLi_CON = new MySQLi($DB_host,$DB_user,$DB_pass,$DB_name);
+  $MySQLi_CON = new mysqli($DB_host,$DB_user,$DB_pass,$DB_name);
     
      if($MySQLi_CON->connect_errno)
      {
