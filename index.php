@@ -1,6 +1,7 @@
 <?php
+session_start();
 
-include_once 'dbcon.php';
+include_once './include/dbcon.php';
 /*$data="pass";
 $hashed = hash('sha512', $data);
 $hashed2 = hash('sha256', $data);
@@ -22,16 +23,14 @@ if(isset($_POST['login']))
 
   if($hashpasss == $row['password'])
  {
- 
-  
-  header("Location:home.php");
-      
-}
+  $_SESSION['user'] = $row['id'];
+  header("Location:./pages/home.php");   
+ }
  
  
  else
  {
-  echo "<h4 style='color: red;font-size: 1.5em;'>Incorrect password or email</h4>";	
+  echo "<h4 style='color: red;font-size: 1.5em;text-align:center;'>Incorrect password or email</h4>";	
    
 
 }
@@ -80,22 +79,20 @@ if(isset($_POST["signup"]))
                 if($result)
 				 {echo"successfully registered ";}
 
-				  else{echo"<h4 style='color: red;font-size: 1.5em;'>error</h4>";}
+				  else{echo"<h4 style='color: red;font-size: 1.5em;text-align:center;'>error</h4>";}
         
              }
 
 		else{
- echo" <h4 style='color: red;font-size: 1.5em;'>the email you entered exist in the sysyem </h4>";
+ echo" <h4 style='color: red;font-size: 1.5em;text-align:center;'>the email you entered exist in the sysyem </h4>";
     
             }
 
 }
 ?>
-<link rel ="stylesheet" type="text/css" href="home.css">
+<link rel ="stylesheet" type="text/css" href="./css/css.css">
 
 <!-- <A HREF="#singin">sign in</A>
-
-
 <A HREF="#singup">sign up</A> -->
 <div class="tmenu">
     <nav class="navtop">
@@ -124,14 +121,13 @@ if(isset($_POST["signup"]))
 </div>
 
 
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br>
 
-<section name>
 
+
+ 
+     <a name="singup"> <center><h1 style="padding-bottom: 25px;padding-top: 180px;">please use a valid and unused email</h1></center></a>
 <form  class="form" action="index.php" method="post" >
-      
-     <a name="singup">   <h2 class="title">Sign Up</h2><hr/> </a>
+       <h2 class="title">Sign Up</h2><hr/>  
       
   
 
@@ -147,96 +143,7 @@ if(isset($_POST["signup"]))
             
 
           <input type="submit" name="signup" value="Create Account">
-            
-            
-            
-        </div> 
-      
+        
       </form>
 
-</section>
 
-
-
-
-
-<style type="text/css">
-body{
-  background-color: #000000;
-}
-.form {
-  background:  #050505;
-  border: 2px solid #37a69b;
-  border-radius: 6px;
-  height: auto;
-  margin: 20px auto 0;
-  width: 298px;
-  padding-bottom: 10px;
-}
-
-input[type="submit"] {
-  width:240px;
-  height:35px;
-  font-size:16px;
-  font-weight:bold;
-  color:#fff;
-  text-decoration:none;
-  text-transform:uppercase;
-  text-align:center;
-  padding-top:6px;
-  margin: 29px 0 0 29px;
-  border-color:#16A085;
-  background-color: #37a69b;
-  
-}
-
-
-.inputs{
-color:#fff;
-  
-  border: 2px solid #37a69b;
-  border-radius: 4px;
-  
-   /*box-sizing: border-box;*/
-  color: #000;
-  height: 39px;
-  margin: 31px 0 0 29px;
-  font-size: 1.3em;
-  width: 240px;
-}
-.title{
-  font-size: 2em;
-  text-align: center;
-  color: #37a69b;
-}
-.tmenu{
-  position: fixed;
-
-}
-.navtop{
-
-  padding: 50px 0px 30px 0px;
-    }
-.navtop ul li { 
-  padding:20px 2  0px;
-  display:inline-block;
-  margin-right: 2px;
-  
- }
-.navtop li a{
-  background-color:#37a69b;
-  text-decoration: none;
-  color:#FFF;
-  font-size:1.5em;
-  padding:20px 40px;
-  transition: all 0.5s ease-in-out;  
-}
-h1{
-  color:#fff;
-  padding: 50px;
-  text-align: center;
-  /*font-size: 3em; */
-  
-}
-
-      </style>
