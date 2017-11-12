@@ -36,19 +36,8 @@ if(isset($_POST['login']))
 }
  
  $MySQLi_CON->close();
- 
-
-
 
 }
-
-
-
-
-
-
-
-
 
 
 if(isset($_POST["signup"]))
@@ -134,13 +123,8 @@ if(isset($_POST["signup"]))
  
       
         <input class="inputs"  type="text"  placeholder="names" name="names" required  />
-      
         <input class="inputs" type="email"  placeholder="Email address" name="email" required  />
-        <input class="inputs" type="password" placeholder="Password" name="pass" required  />
-                      
- 
-
-            
+        <input class="inputs" type="password" placeholder="Password" name="pass" required  />        
 
           <input type="submit" name="signup" value="Create Account">
         
