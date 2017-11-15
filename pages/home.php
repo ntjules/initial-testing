@@ -9,8 +9,8 @@ if(!isset($_SESSION['user']))
 }
 $user_id=$_SESSION['user'];
 
-$query = $MySQLi_CON->query("SELECT names FROM users WHERE id='$user_id'" );
- $row=$query->fetch_array();
+$query = pg_query($dbcon,"SELECT names FROM users WHERE id='$user_id'" );
+ $row=pg_fetch_array($query);
 
 echo "<h4>welcome :  ";
 echo $row['names']."</h4>";

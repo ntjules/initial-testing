@@ -2,22 +2,82 @@
 session_start();
 
 include_once './include/dbcon.php';
-/*$data="pass";
+$data=pg_escape_string(trim("c"));
 $hashed = hash('sha512', $data);
-$hashed2 = hash('sha256', $data);
+
+
+//$hashed2 = hash('sha256', $data);
 
  echo $hashed;echo "<br>";
- echo $hashed2;*/
+ // echo $hashed2;
+
+
+ /* $result = pg_query($dbcon, "SELECT * FROM users" );
+   if ($result) {
+    $row = pg_fetch_row($result);
+    $rows=pg_fetch_array($result);
+
+echo $rows['names'];
+     echo "good";
+
+
+     $count = pg_num_rows($result);
+     echo $count;*/
+     
+   /* while ($row = pg_fetch_assoc($result)) {
+  echo $row['names'];
+}
+   }*/
+
+/*
+$query = "SELECT * FROM users LIMIT 5"; 
+
+$rs = pg_query($dbcon, $query) or die("Cannot execute query: $query\n");
+
+$rst = pg_query($dbcon, "SELECT * FROM users WHERE email='test@test.com' LIMIT 5") or die("Cannot execute query: $query\n");
+$count = pg_num_rows($rst);
+     echo $count;
+$ro=pg_fetch_array($rst);
+echo $ro['names'];
+
+
+
+ $queryi = pg_query($dbcon, "SELECT * FROM users WHERE email='test@test.com'");
+ $row=pg_fetch_array($queryi);
+ echo $row['password'];
+ 
+
+
+
+
+while ($row = pg_fetch_assoc($rs)) {
+    echo $row['id'] . " " . $row['names'] . " " . $row['email'];
+    echo "\n";
+}
+
+
+pg_close($dbcon);
+
+
+
+*/
+
+
+
 
 if(isset($_POST['login']))
 {
- $emails = $MySQLi_CON->real_escape_string(trim($_POST['emails']));
- $passs = $MySQLi_CON->real_escape_string(trim($_POST['passs']));
+ /*$emails = $dbcon->real_escape_string(trim($_POST['emails']));
+ $passs = $dbcon->real_escape_string(trim($_POST['passs']));*/
+
+ $emails =pg_escape_string(trim($_POST['emails']));
+ $passs =pg_escape_string(trim($_POST['passs']));
+
  $hashpasss=hash('sha512', $passs);
  
  
- $query = $MySQLi_CON->query("SELECT * FROM users WHERE email='$emails'");
- $row=$query->fetch_array();
+ $query = pg_query($dbcon, "SELECT * FROM users WHERE email='$emails'");
+ $row=pg_fetch_array($query);
 
 
 
@@ -35,7 +95,7 @@ if(isset($_POST['login']))
 
 }
  
- $MySQLi_CON->close();
+pg_close($dbcon);
 
 }
 
@@ -43,14 +103,14 @@ if(isset($_POST['login']))
 if(isset($_POST["signup"]))
 {
       
-   $name=$_POST["names"];
-   $email=$_POST["email"];
-   $password=$_POST["pass"];
-   $hashpass=hash('sha256', $password);
+   $name=pg_escape_string(trim($_POST["names"]));
+   $email=pg_escape_string(trim($_POST["email"]));
+   $password=pg_escape_string(trim($_POST["pass"]));
+   $hashpass=hash('sha512', $password);
    
 
-       $check_email = $MySQLi_CON->query("SELECT email FROM users WHERE email='$email'");
- $count=$check_email->num_rows;
+       $check_email = pg_query($dbcon,"SELECT email FROM users WHERE email='$email'");
+ $count=pg_num_rows($check_email);
  
  if($count==0){
 
@@ -58,8 +118,8 @@ if(isset($_POST["signup"]))
           $query = "INSERT INTO users(names,email,password)VALUES('$name','$email','$hashpass')";
 
                      
- $result = mysqli_query($MySQLi_CON,$query);
-				mysqli_close($MySQLi_CON);
+ $result = pg_query($dbcon,$query);
+				pg_close($dbcon);
 
           
 
